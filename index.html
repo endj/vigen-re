@@ -1,0 +1,21 @@
+<body>
+    <label>text</label>
+    <input id="text" type="text" pattern="[A-Z]*" placeholder="text" title="[A-Z]">
+    <label>key</label>
+    <input id="key" type="text" pattern="[A-Z]*" placeholder="key" title="[A-Z]">
+    <button onclick="enc()">encrypt</button>
+    <button onclick="dec()">decrypt</button>
+    <pre id="content"></pre>
+    <script>
+        const vals = () =>  [document.getElementById("text").value, document.getElementById("key").value]
+        const enc = () => {
+            const [text, key] = vals()
+            document.getElementById("content").textContent = encrypt(text, key)
+        }
+        const dec = () => {
+            const [text, key] = vals()
+            document.getElementById("content").textContent = decrypt(text, key)
+        }
+    </script>
+    <script src="vigenere.js"></script>
+</body>
