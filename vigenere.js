@@ -1,4 +1,4 @@
-const validateEncryptionParamters = (key, text) => {
+const validateParams = (key, text) => {
     if (!key || typeof key !== "string") throw "invalid key"
     if (!text || typeof text !== "string") throw "invalid text"
     validateCharset(key)
@@ -31,11 +31,5 @@ const decrypt = (text, key) => {
         const val = (textNum - keyNum + 26) % 26
         decrypted += String.fromCharCode(val + 65)
     }
-
     return decrypted;
 }
-
-console.log("ORIGINAL", "ADGGADG")
-console.log("encrypted", encrypt("HELLOWORLD", "ADGGADG"))
-console.log("decrypted", decrypt("HELLOWORLD", encrypt("HELLOWORLD", "ADGGADG")))
-
