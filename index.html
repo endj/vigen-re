@@ -1,24 +1,37 @@
 <body>
-    <header><style>* {margin:0;padding:0}</style></header>
-    <input id="text" type="text" pattern="[A-Z]*" placeholder="text" title="[A-Z]">
-    <input id="key" type="text" pattern="[A-Z]*" placeholder="key" title="[A-Z]">
-    <button onclick="enc()">encrypt</button>
-    <button onclick="enc2()">encrypt</button>
-    <button onclick="dec()">decrypt</button>
-    <pre id="content"></pre>
+    <header>
+        <style>
+            * {
+                margin: 0;
+                padding: 0
+            }
+            pre {font-size: large;}
+        </style>
+    </header>
+    <div style="padding: 10px;">
+        <input autofocus id="text" type="text" placeholder="text" oninput="upperCase(event)">
+        <input id="key" type="text" placeholder="key" oninput="upperCase(event)">
+        <button onclick="enc()">encrypt</button>
+        <button onclick="dec()">decrypt</button>
+        <pre id="encryptedText">Encrypted:</pre>
+        <pre id="decryptedText">Decrypted:</pre>
+    </div>
     <script>
-        const vals = () =>  [document.getElementById("text").value, document.getElementById("key").value]
-        const enc = () => {
-            const [text, key] = vals()
-            document.getElementById("content").textContent = encrypt(text, key)
+        function upperCase(event) {
+            event.target.value = [...event.target.value.toUpperCase()]
+                .filter(c => c.charCodeAt(0) >= 65 && c.charCodeAt(0) <= 90).join("");
         }
-        const enc2 = () => {
-            const [text, key] = vals()
-            document.getElementById("content").textContent = encrypt2(text, key)
+        const enc = () => {
+            document.getElementById("encryptedText").textContent = "Encrypted: "
+            const text = document.getElementById("text").value;
+            const key = document.getElementById("key").value
+            validateParams(text, key)
+            encryptAnimated(text, key)
         }
         const dec = () => {
-            const [text, key] = vals()
-            document.getElementById("content").textContent = decrypt(text, key)
+            const text = document.getElementById("text").value;
+            const key = document.getElementById("key").value
+            document.getElementById("decryptedText").textContent = "Decrypted: " + decrypt(text, key)
         }
     </script>
     <script src="vigenere.js"></script>
